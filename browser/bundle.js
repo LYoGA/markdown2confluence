@@ -49,14 +49,14 @@
 
 	$('#convert').click(function() {
 		var markdown = $('#markdown').val()
-		$('#markup').val(convert(markdown))
+		$('#markup').val('{toc} \n\n' + convert(markdown))
 	})
 
 	$(init)
 
 	function init() {
-		$('#markdown').val(demoMarkdown)
-		$('#convert').trigger('click')
+		// $('#markdown').val(demoMarkdown)
+		// $('#convert').trigger('click')
 	}
 
 
@@ -75,13 +75,13 @@
 	// https://confluence.atlassian.com/display/DOC/Confluence+Wiki+Markup
 	// http://blogs.atlassian.com/2011/11/why-we-removed-wiki-markup-editor-in-confluence-4/
 
-	var MAX_CODE_LINE = 20
+	var MAX_CODE_LINE = 30
 
 	function Renderer() {}
 
 	var rawRenderer = marked.Renderer
 
-	var langArr = 'actionscript3 bash csharp coldfusion cpp css delphi diff erlang groovy java javafx javascript perl php none powershell python ruby scala sql vb html/xml'.split(/\s+/)
+	var langArr = 'actionscript3 bash csharp coldfusion cpp css delphi diff erlang groovy java javafx javascript perl php none powershell python ruby scala sql vb html/xml xml'.split(/\s+/)
 	var langMap = {
 		shell: 'bash'
 	}
@@ -112,7 +112,7 @@
 			return '{{' + text + '}}'
 		}
 		, blockquote: function(quote) {
-			return '{quote}' + quote + '{quote}'
+			return '{quote}' + quote + '{quote}\n'
 		}
 		, br: function() {
 			return '\n'
@@ -141,7 +141,7 @@
 			return body + '\n'
 		}
 		, image: function(href, title, text) {
-			return '!' + href + '!'
+			return '!' + href + '|width=777!'
 		}
 		, table: function(header, body) {
 			return header + body + '\n'
